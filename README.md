@@ -73,3 +73,13 @@ beroenden har inte installerats om.
 beroendekedja (`braces` → `micromatch` → `fast-glob` med flera). Den föreslagna
 force-åtgärden nedgraderar shadcn till 1.0.0 och har därför inte körts.
 Det är en kvarstående installationsvarning, inte ett TypeScript- eller byggfel.
+
+## AI-användning
+
+Under utvecklingen av Atlas har jag använt ChatGPT och OpenAI Codex som stöd.
+
+- **ChatGPT:** För att diskutera projektets struktur, tolka uppgiftskraven, planera arbetet och få förklaringar kring React, TypeScript och API-hantering.
+- **Codex:** För att installera och konfigurera återanvändbara UI-komponenter från shadcn/ui, som Card, Button, Input och Sheet.
+- **Eget arbete:** Jag ansvarar för projektets funktionalitet, granskar AI-genererade ändringar och säkerställer att jag förstår koden som används.
+
+AI har fungerat som ett utvecklingsstöd, inte som en ersättning för min egen förståelse av projektet.

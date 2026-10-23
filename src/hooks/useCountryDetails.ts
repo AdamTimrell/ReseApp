@@ -7,5 +7,6 @@ export const useCountryDetails = (alpha3Code: string) => {
     queryKey: ["countryDetails", alpha3Code],
     queryFn: () => getCountryDetails(alpha3Code),
     staleTime: Infinity,
+    enabled: alpha3Code.trim().length > 0, // Kör enbart frågan om alpha3Code inte är tomt
   });
 };

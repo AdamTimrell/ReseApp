@@ -15,13 +15,19 @@ export function CountryDetailsPage() {
 
   //Weather handling
   const { data: geocodingData } = useGeocodingData(country?.capital ?? "");
-  const latitude =
-    geocodingData?.results?.[0]?.latitude ?? country?.latlng?.[0];
-  const longitude =
-    geocodingData?.results?.[0]?.longitude ?? country?.latlng?.[1];
-  const { data: weatherData } = useWeather(latitude, longitude);
+  const matchingLocation = geocodingData?.results?.find(
+    (result) => result.country === country?.name,
+  );
+  const latitude = matchingLocation?.latitude ?? country?.latlng?.[0];
+  const longitude = matchingLocation?.longitude ?? country?.latlng?.[1];
+  //Weather error handling
+  const {
+    data: weatherData,
+    isPending: isWeatherPending,
+    error: weatherError,
+  } = useWeather(latitude, longitude);
 
-  //wikipedia handling
+  //wikipedia error handling
   const {
     data: wikipediaData,
     isPending: isWikipediaPending,
@@ -67,36 +73,47 @@ export function CountryDetailsPage() {
             ? country.currencies.map((currency) => currency.name).join(", ")
             : "Not Available"}
         </p>
-        <p>
-          Weather:{" "}
-          {weatherData?.current.temperature_2m != null ? (
-            <span>{weatherData?.current.temperature_2m}°C</span>
+        <section>
+          <h2>Weather</h2>
+          {isWeatherPending ? (
+            <p>Loading Weather...</p>
+          ) : weatherError ? (
+            <p>Could not load Weather.</p>
           ) : (
-            "Not Available"
+            <div>
+              <p>
+                Temperature:{""}
+                {weatherData?.current.temperature_2m != null ? (
+                  <span>{weatherData?.current.temperature_2m}°C</span>
+                ) : (
+                  <span>Not Available</span>
+                )}
+              </p>
+              <p>
+                Weather Description:{" "}
+                {weatherData?.current.weather_code != null ? (
+                  <span>
+                    {getWeatherDescription(weatherData.current.weather_code)}
+                  </span>
+                ) : (
+                  "Not Available"
+                )}
+              </p>
+              <p>
+                Humidity:{" "}
+                {weatherData?.current.relative_humidity_2m != null
+                  ? `${weatherData.current.relative_humidity_2m}%`
+                  : "Not Available"}
+              </p>
+              <p>
+                Wind Speed:{" "}
+                {weatherData?.current.wind_speed_10m != null
+                  ? `${weatherData.current.wind_speed_10m} km/h`
+                  : "Not Available"}
+              </p>
+            </div>
           )}
-        </p>
-        <p>
-          Weather Description:{" "}
-          {weatherData?.current.weather_code != null ? (
-            <span>
-              {getWeatherDescription(weatherData.current.weather_code)}
-            </span>
-          ) : (
-            "Not Available"
-          )}
-        </p>
-        <p>
-          Humidity:{" "}
-          {weatherData?.current.relative_humidity_2m != null
-            ? `${weatherData.current.relative_humidity_2m}%`
-            : "Not Available"}
-        </p>
-        <p>
-          Wind Speed:{" "}
-          {weatherData?.current.wind_speed_10m != null
-            ? `${weatherData.current.wind_speed_10m} km/h`
-            : "Not Available"}
-        </p>
+        </section>
         <p>
           Description:{" "}
           {isWikipediaPending ? (

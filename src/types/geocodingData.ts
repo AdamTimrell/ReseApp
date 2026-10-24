@@ -4,5 +4,6 @@ export interface GeocodingData {
     latitude: number;
     longitude: number;
     country_code: string;
+    country: string;
   }[];
 }

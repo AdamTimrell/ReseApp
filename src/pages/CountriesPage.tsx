@@ -1,7 +1,5 @@
 import { useCountries } from "../hooks/useCountries";
 import { CountryCard } from "../components/countries/CountryCard.tsx";
-import { useState } from "react";
-import { useNavigate } from "react-router";
 import { useSearchParams } from "react-router";
 import { SearchBar } from "../components/countries/SearchBar.tsx";
 import { RegionFilter } from "../components/countries/RegionFilter.tsx";
@@ -12,13 +10,9 @@ export function CountriesPage() {
   const { data: countries, isPending, error } = useCountries();
 
   // Routing and URL parameters
-  const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const submittedSearch = searchParams.get("query") ?? "";
   const selectedRegion = searchParams.get("region") ?? "All";
-
-  // Search state
-  const [search, setSearch] = useState(submittedSearch);
 
   // Filtering
   const filteredCountries = countries?.filter((country) => {
@@ -43,36 +37,19 @@ export function CountriesPage() {
   const endIndex = startIndex + countriesPerPage;
   const paginatedCountries = filteredCountries?.slice(startIndex, endIndex);
 
-  // Search matches
-  const searchMatches = countries?.filter((country) =>
-    country.name.toLowerCase().includes(search.trim().toLowerCase()),
-  );
-
-  // Event handlers
-  const handleSearchSubmit = () => {
-    if (searchMatches?.length === 1) {
-      navigate(`/country/${searchMatches[0].alpha3Code}`);
-      return;
-    }
-    navigate(`/?query=${encodeURIComponent(search.trim())}&page=1`);
-  };
-
   // Loading and error states
   if (isPending) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
   // JSX return
   return (
-    <main>
-      <SearchBar
-        search={search}
-        onSearchChange={setSearch}
-        onSearchSubmit={handleSearchSubmit}
-      />
+    <div className="flex flex-col gap-6 px-4 py-6 max-w-7xl mx-auto w-full sm:px-6 lg:px-8">
       <RegionFilter selectedRegion={selectedRegion} />
-      {paginatedCountries?.map((country) => (
-        <CountryCard key={country.alpha3Code} country={country} />
-      ))}
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {paginatedCountries?.map((country) => (
+          <CountryCard key={country.alpha3Code} country={country} />
+        ))}
+      </div>
       {filteredCountries?.length === 0 && <p>No countries found.</p>}
       <div className="flex items-center justify-center gap-4">
         <Button
@@ -103,6 +80,6 @@ export function CountriesPage() {
           Next
         </Button>
       </div>
-    </main>
+    </div>
   );
 }

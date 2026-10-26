@@ -20,6 +20,9 @@ export const getCountryDetails = async (
   const response = await fetch(
     `https://countries.dev/alpha/${alpha3Code}?fields=name,alpha3Code,region,capital,flags,population,area,nativeName,subregion,cioc,latlng,currencies,languages`,
   );
+  if (response.status === 404) {
+    throw new Error("Country not found");
+  }
 
   if (!response.ok) {
     throw new Error(`Failed to fetch country details: ${response.statusText}`);

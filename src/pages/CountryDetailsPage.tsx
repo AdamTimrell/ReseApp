@@ -55,7 +55,10 @@ export function CountryDetailsPage() {
 
       {/* RESPONSIV LAYOUT: Visar Wikipedia och väder i en eller två kolumner */}
       <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-2">
-        <WikipediaSection countryName={country.name} />
+        <WikipediaSection
+          countryName={country.name}
+          countryCode={country.alpha2Code}
+        />
         <CountryWeather country={country} />
       </div>
     </div>

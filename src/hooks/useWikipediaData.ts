@@ -2,12 +2,12 @@ import { useQuery } from "@tanstack/react-query";
 import type { WikipediaData } from "@/types/wikipediaData";
 import { getWikipediaData } from "@/services/wikipediaService";
 
-// WIKIPEDIA: Hämtar och cachar artikeldata när landets namn finns
-export const useWikipediaData = (name: string) => {
-  return useQuery<WikipediaData, Error>({
-    queryKey: ["wikipedia", name],
-    queryFn: () => getWikipediaData(name),
+// WIKIPEDIA: Hämtar och cachar svenska artikeldata per landskod
+export const useWikipediaData = (countryCode: string) => {
+  return useQuery<WikipediaData | null, Error>({
+    queryKey: ["wikipedia", "sv", countryCode],
+    queryFn: () => getWikipediaData(countryCode),
     staleTime: Infinity,
-    enabled: name.trim().length > 0, // Kör enbart frågan om namnet inte är tomt
+    enabled: countryCode.trim().length > 0, // Kör enbart frågan om landskoden finns
   });
 };

@@ -4,16 +4,20 @@ import { BookOpen, ExternalLink } from "lucide-react";
 
 interface WikipediaSectionProps {
   countryName: string;
+  countryCode: string;
 }
 
-export function WikipediaSection({ countryName }: WikipediaSectionProps) {
-  // WIKIPEDIA: Hämtar artikelutdrag för landets namn
+export function WikipediaSection({
+  countryName,
+  countryCode,
+}: WikipediaSectionProps) {
+  // WIKIPEDIA: Hämtar svenskt artikelutdrag för landets ISO-kod
   const {
     data: wikipediaData,
     isPending: isWikipediaPending,
     error: wikipediaError,
     refetch: refetchWikipedia,
-  } = useWikipediaData(countryName);
+  } = useWikipediaData(countryCode);
 
   return (
     <section className="flex h-full min-w-0 flex-col rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">

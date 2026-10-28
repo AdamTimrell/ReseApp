@@ -54,7 +54,7 @@ Jag hade från början implementerat en alternativ sökfunktion som fungerade an
 
 ## Deployment
 
-**Länk till applikationen:** [Lägg till länk efter publicering]
+**Länk till applikationen:** (https://elsewhere-gamma-eight.vercel.app/)
 
 ## AI-användning
 
@@ -66,3 +66,4 @@ Jag har använt verktygen både för att förstå nya koncept och för att få h
 
 Detta var ett av de roligare projekten jag arbetat med sedan jag började studera frontend. Komponentbaserade kodningen ger ett naturligt sett att organisera koden på som passar mig bättre och hjälper mig att planera mitt projekt. Förr så har alltid projekten känts stora och matiga men denna gången var det mycket lättare att bara ta en funktion i taget.
 Utöver detta var det också roligt att få arbeta i Tailwind. Jag har tidiagare arbetat med Boostrap som ger en mer färdiga komponenter jämfört med Tailwind. Jag var förvånad själv över hur mycket css som jag fortfarande kom ihåg.
+Jag hade helst velat ha bättre bilder till landskorten som kanske visar landskap ifrån länderna. Det är nog den enda skillnaden jag hade gjort.

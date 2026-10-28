@@ -10,9 +10,11 @@ export function RegionFilter({ selectedRegion }: RegionFilterProps) {
   const regions = ["All", "Africa", "Americas", "Asia", "Europe", "Oceania"];
 
   return (
-    <div>
+    <div className="flex flex-col gap-2 w-full">
+      <h3 className="text-md font-semibold text-gray-700">Region</h3>
       {regions.map((region) => (
         <Button
+          className={`w-full ${region === selectedRegion ? "bg-teal-700 text-white hover:bg-teal-800" : ""}`}
           variant={region === selectedRegion ? "default" : "outline"}
           key={region}
           onClick={() => {

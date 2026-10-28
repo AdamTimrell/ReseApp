@@ -32,11 +32,11 @@ export function CountryDetailsPage() {
   if (!country) return <NotFoundPage />;
 
   return (
-    <main>
+    <div className="flex flex-col gap-6 px-4 py-6 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
       <CountryHero country={country} />
       <CountryInfo country={country} />
       <CountryWeather country={country} />
       <WikipediaSection countryName={country.name} />
-    </main>
+    </div>
   );
 }

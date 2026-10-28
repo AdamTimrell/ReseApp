@@ -1,3 +1,4 @@
+// TYPER VÄDER: Aktuellt väder och dagliga prognosvärden från API:et
 export interface WeatherData {
   current: {
     temperature_2m: number | null;

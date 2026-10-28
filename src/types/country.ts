@@ -1,3 +1,4 @@
+// TYPER LÄNDER: Grunduppgifter för landlistan
 export interface Country {
   name: string;
   alpha3Code: string;

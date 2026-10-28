@@ -1,3 +1,4 @@
+// TYPER GEOKODNING: Sökresultat med ortnamn och koordinater
 export interface GeocodingData {
   results?: {
     name: string;

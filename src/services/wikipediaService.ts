@@ -1,5 +1,6 @@
-import type { WikipediaData } from "../types/wikipediaData.ts";
+import type { WikipediaData } from "@/types/wikipediaData";
 
+// API WIKIPEDIA: Hämtar artikelns sammanfattning med URL-kodat namn
 export const getWikipediaData = async (
   name: string,
 ): Promise<WikipediaData> => {

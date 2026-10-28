@@ -1,9 +1,10 @@
-import { AppLayout } from "./components/layout/AppLayout.tsx";
-import { CountriesPage } from "./pages/CountriesPage.tsx";
-import { CountryDetailsPage } from "./pages/CountryDetailsPage.tsx";
-import { NotFoundPage } from "./pages/NotFoundPage.tsx";
+import { AppLayout } from "@/components/layout/AppLayout";
+import { CountriesPage } from "@/pages/CountriesPage";
+import { CountryDetailsPage } from "@/pages/CountryDetailsPage";
+import { NotFoundPage } from "@/pages/NotFoundPage";
 import { Routes, Route } from "react-router";
 
+// ROUTING: Kopplar URL-sökvägar till startsida, landsdetaljer och 404
 export default function App() {
   return (
     <Routes>

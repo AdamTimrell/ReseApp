@@ -1,6 +1,7 @@
 import type { CountryDetails } from "@/types/countryDetails";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, MapPin } from "lucide-react";
 import { useLocation, useNavigate } from "react-router";
+import { useState } from "react";
 
 interface CountryHeroProps {
   country: CountryDetails;
@@ -9,28 +10,80 @@ interface CountryHeroProps {
 export function CountryHero({ country }: CountryHeroProps) {
   const location = useLocation();
   const navigate = useNavigate();
+  const [flagSource, setFlagSource] = useState<"png" | "svg" | "fallback">(
+    "png",
+  );
 
+  // NAVIGATION: Går tillbaka i historiken eller till startsidan vid direktbesök
   const handleBack = () => {
-    location.state?.fromAtlas ? navigate(-1) : navigate("/");
+    if (location.state?.fromAtlas) {
+      navigate(-1);
+    } else {
+      navigate("/");
+    }
   };
+
   return (
-    <section className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-      <div className="p-4">
+    <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+      <div className="px-5 py-4 sm:px-6">
         <button
+          type="button"
           onClick={handleBack}
-          className="flex items-center gap-2 text-gray-600 hover:text-teal-700"
+          className="inline-flex items-center gap-2 rounded-md text-sm font-medium text-slate-600 transition-colors hover:text-teal-700 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal-700"
         >
-          <ArrowLeft className="w-4 h-4" />
-          Back
+          <ArrowLeft className="h-4 w-4" aria-hidden="true" />
+          Tillbaka
         </button>
       </div>
-      <div className="flex gap-4 p-6 items-center">
-        <img
-          className="w-24 h-16 object-contain rounded-md shrink-0"
-          src={country.flags.png}
-          alt={`Flag of ${country.name}`}
-        />
-        <h1 className="text-base sm:text-2xl font-bold ">{country.name}</h1>
+
+      {/* HERO: Visar landets flagga, namn och regioner */}
+      <div className="border-t border-slate-100 bg-gradient-to-r from-teal-50 via-white to-slate-50 px-5 py-8 sm:px-8 sm:py-12">
+        <div className="flex flex-col items-start gap-6 sm:flex-row sm:items-center">
+          <div className="flex h-28 w-40 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-slate-200 bg-white p-2 shadow-md sm:h-32 sm:w-48">
+            {/* FLAGGA: Reservbild i SVG eller reservtext om flaggan inte laddas */}
+            {flagSource === "fallback" ? (
+              <span className="text-sm text-slate-500">Flagga saknas</span>
+            ) : (
+              <img
+                src={
+                  flagSource === "png" ? country.flags.png : country.flags.svg
+                }
+                alt={`Flagga för ${country.name}`}
+                onError={() =>
+                  setFlagSource((current) =>
+                    current === "png" ? "svg" : "fallback",
+                  )
+                }
+                className="max-h-full max-w-full object-contain"
+              />
+            )}
+          </div>
+
+          <div className="min-w-0 space-y-3">
+            <p className="flex items-center gap-2 text-sm font-medium text-teal-700">
+              <MapPin className="h-4 w-4" aria-hidden="true" />
+              Upptäck landet
+            </p>
+
+            <h1 className="break-words text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
+              {country.name}
+            </h1>
+
+            <div className="flex flex-wrap gap-2">
+              {country.region && (
+                <span className="rounded-full border border-teal-200 bg-white px-3 py-1 text-sm font-medium text-teal-800">
+                  {country.region}
+                </span>
+              )}
+
+              {country.subregion && (
+                <span className="rounded-full border border-slate-200 bg-white px-3 py-1 text-sm text-slate-600">
+                  {country.subregion}
+                </span>
+              )}
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

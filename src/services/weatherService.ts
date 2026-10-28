@@ -1,5 +1,6 @@
-import type { WeatherData } from "../types/weather.ts";
+import type { WeatherData } from "@/types/weather";
 
+// API VÄDER: Hämtar aktuellt väder och sjudygnsprognos från Open-Meteo
 export const getWeather = async (
   latitude: number,
   longitude: number,

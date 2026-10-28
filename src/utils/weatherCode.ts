@@ -1,62 +1,127 @@
+import {
+  Sun,
+  CloudSun,
+  Cloud,
+  CloudFog,
+  CloudDrizzle,
+  CloudRain,
+  CloudSnow,
+  CloudLightning,
+  CircleHelp,
+} from "lucide-react";
+
+// VÄDERKODER: Översätter väderkod till svensk beskrivning
 export function getWeatherDescription(code: number): string {
   switch (code) {
     case 0:
-      return "Clear sky";
+      return "Klart väder";
     case 1:
-      return "Mainly clear";
+      return "Mestadels klart";
     case 2:
-      return "Partly cloudy";
+      return "Delvis molnigt";
     case 3:
-      return "Overcast";
+      return "Mulet";
     case 45:
-      return "Fog";
+      return "Dimma";
     case 48:
-      return "Depositing rime fog";
+      return "Dimma med rimfrost";
     case 51:
-      return "Light drizzle";
+      return "Lätt duggregn";
     case 53:
-      return "Moderate drizzle";
+      return "Måttligt duggregn";
     case 55:
-      return "Dense drizzle";
+      return "Kraftigt duggregn";
     case 56:
-      return "Light freezing drizzle";
+      return "Lätt underkylt duggregn";
     case 57:
-      return "Dense freezing drizzle";
+      return "Kraftigt underkylt duggregn";
     case 61:
-      return "Slight rain";
+      return "Lätt regn";
     case 63:
-      return "Moderate rain";
+      return "Måttligt regn";
     case 65:
-      return "Heavy rain";
+      return "Kraftigt regn";
     case 66:
-      return "Light freezing rain";
+      return "Lätt underkylt regn";
     case 67:
-      return "Heavy freezing rain";
+      return "Kraftigt underkylt regn";
     case 71:
-      return "Slight snow fall";
+      return "Lätt snöfall";
     case 73:
-      return "Moderate snow fall";
+      return "Måttligt snöfall";
     case 75:
-      return "Heavy snow fall";
+      return "Kraftigt snöfall";
     case 77:
-      return "Snow grains";
+      return "Snökorn";
     case 80:
-      return "Slight rain showers";
+      return "Lätta regnskurar";
     case 81:
-      return "Moderate rain showers";
+      return "Måttliga regnskurar";
     case 82:
-      return "Heavy rain showers";
+      return "Kraftiga regnskurar";
     case 85:
-      return "Slight snow showers";
+      return "Lätta snöbyar";
     case 86:
-      return "Heavy snow showers";
+      return "Kraftiga snöbyar";
     case 95:
-      return "Thunderstorm";
+      return "Åskväder";
     case 96:
-      return "Thunderstorm with light hail";
+      return "Åskväder med lätt hagel";
     case 99:
-      return "Thunderstorm with heavy hail";
+      return "Åskväder med kraftigt hagel";
     default:
-      return "Unknown weather condition";
+      return "Okänt väderförhållande";
+  }
+}
+
+// VÄDERIKONER: Väljer Lucide-ikon utifrån väderkod
+export function getWeatherIconComponent(code: number) {
+  switch (code) {
+    case 0:
+      return Sun;
+
+    case 1:
+    case 2:
+      return CloudSun;
+
+    case 3:
+      return Cloud;
+
+    case 45:
+    case 48:
+      return CloudFog;
+
+    case 51:
+    case 53:
+    case 55:
+    case 56:
+    case 57:
+      return CloudDrizzle;
+
+    case 61:
+    case 63:
+    case 65:
+    case 66:
+    case 67:
+    case 80:
+    case 81:
+    case 82:
+      return CloudRain;
+
+    case 71:
+    case 73:
+    case 75:
+    case 77:
+    case 85:
+    case 86:
+      return CloudSnow;
+
+    case 95:
+    case 96:
+    case 99:
+      return CloudLightning;
+
+    default:
+      return CircleHelp;
   }
 }

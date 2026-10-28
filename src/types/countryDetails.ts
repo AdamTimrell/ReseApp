@@ -1,6 +1,8 @@
-import type { Country } from "./country.ts";
+import type { Country } from "@/types/country";
 
+// TYPER LANDSDETALJER: Utökar landets grunduppgifter med språk, valutor och koordinater
 export interface CountryDetails extends Country {
+  alpha2Code: string;
   nativeName?: string | null;
   subregion?: string | null;
   cioc?: string | null;

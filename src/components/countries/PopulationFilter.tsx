@@ -11,6 +11,7 @@ interface PopulationFilterProps {
   selectedPopulation: string;
 }
 
+// BEFOLKNINGSFILTER: Sparar valt intervall i URL:en och återställer sidnumret
 export function PopulationFilter({
   selectedPopulation,
 }: PopulationFilterProps) {

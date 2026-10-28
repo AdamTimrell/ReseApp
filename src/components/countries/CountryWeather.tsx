@@ -15,8 +15,12 @@ interface CountryWeatherProps {
 
 export function CountryWeather({ country }: CountryWeatherProps) {
   // GEOKODNING: Söker huvudstadens koordinater med landets tvåbokstavskod
-  const { data: geocodingData, isPending: isGeocodingPending } =
-    useGeocodingData(country.capital ?? "", country.alpha2Code);
+  const {
+    data: geocodingData,
+    isPending: isGeocodingPending,
+    error: geocodingError,
+    refetch: refetchGeocoding,
+  } = useGeocodingData(country.capital ?? "", country.alpha2Code);
   const matchingLocation = geocodingData?.results?.[0];
 
   // KOORDINATER: Väntar på geokodning och använder landets koordinater som reserv
@@ -56,13 +60,28 @@ export function CountryWeather({ country }: CountryWeatherProps) {
 
       {/* VÄDERSTATUS: Hanterar saknade koordinater, laddning och fel med nytt försök */}
       {!shouldWaitForGeocoding && !hasCoordinates ? (
-        <p className="text-slate-600">
-          Väderinformation är inte tillgänglig för detta land.
-        </p>
+        geocodingError ? (
+          <div className="space-y-4">
+            <p role="alert" className="text-slate-600">
+              Kunde inte hämta koordinater för väderinformationen.
+            </p>
+            <Button type="button" onClick={() => refetchGeocoding()}>
+              Försök igen
+            </Button>
+          </div>
+        ) : (
+          <p className="text-slate-600">
+            Väderinformation är inte tillgänglig för detta land.
+          </p>
+        )
       ) : shouldWaitForGeocoding || isWeatherPending ? (
-        <p role="status" className="text-slate-600">
-          Laddar väder...
-        </p>
+        <div role="status" className="flex items-center gap-3 text-slate-600">
+          <div
+            className="h-5 w-5 animate-spin rounded-full border-2 border-slate-200 border-t-teal-700"
+            aria-hidden="true"
+          />
+          <p>Laddar väder...</p>
+        </div>
       ) : weatherError ? (
         <div className="space-y-4">
           <p role="alert" className="text-slate-600">

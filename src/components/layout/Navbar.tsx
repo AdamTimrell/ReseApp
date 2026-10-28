@@ -6,7 +6,7 @@ const Navbar = () => {
   return (
     <nav className="mx-auto flex w-full max-w-7xl flex-col items-stretch gap-3 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:px-6 lg:px-8">
       <Link to="/" className="shrink-0 text-xl font-semibold text-gray-900">
-        Atlas
+        Elsewhere
       </Link>
 
       <div className="min-w-0 w-full sm:w-auto">

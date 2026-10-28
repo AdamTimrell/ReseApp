@@ -1,121 +1,68 @@
-# Atlas
+# Elsewhere 🌍
 
-Atlas is a country exploration and travel information application built as a school final project in JavaScript 3. It brings country facts, weather, and Wikipedia summaries together to help users explore destinations.
+Elsewhere är en webbapplikation där användaren kan utforska världens länder och få information om olika resmål. Applikationen är utvecklad som slutprojekt i kursen JavaScript 3.
 
-## Current features
+## Funktioner
 
-- **Country listing:** Cards show each country's flag, name, capital, and region, with links to its detail page.
-- **Country search:** Case-insensitive name matching. Submitting a search with exactly one match opens that country's detail page directly. Otherwise, the search updates the list, resets the region filter, and returns to page 1.
-- **Region filtering:** Filter by Africa, Americas, Asia, Europe, or Oceania, or select All. Changing the region preserves the search and resets the page.
-- **Pagination:** Up to 12 countries per page, with Previous and Next controls and a page indicator. Invalid page values fall back to page 1; out-of-range page numbers are clamped to the available range.
-- **URL-based list state:** The `query`, `region`, and `page` parameters support direct links to filtered results, for example `/?query=land&region=Europe&page=1`.
-- **Country details:** The `/country/:alpha3Code` route displays the flag, native name, capital, region, subregion, area, population, languages, and currencies.
-- **Current weather:** Country details show temperature, weather description, humidity, and wind speed. Coordinates come from a matching capital-city geocoding result, with country coordinates as a fallback.
-- **Wikipedia summaries:** Country details display an introduction and a link to the English Wikipedia article.
-- **Status messages:** Loading and error messages for country data, weather, and Wikipedia, plus an empty-results message for the country list.
+- Söka efter länder och filtrera efter världsdel och befolkningsmängd.
+- Bläddra mellan länder med paginering.
+- Visa landsinformation som huvudstad, språk, valuta och befolkning.
+- Se aktuellt väder med temperatur, vindhastighet och väderbeskrivning.
+- Läsa beskrivningar och se bilder från Wikipedia.
+- Behålla sökningar och filter i URL:en vid navigering.
+- Visa laddningsindikatorer och felmeddelanden med möjlighet att försöka igen.
 
-## Tech stack
+## Tekniker och ramverk
 
-- **React 19** and **TypeScript 6** for the frontend.
-- **Vite 8** for development and production bundling.
-- **Tailwind CSS 4** through the Tailwind Vite plugin.
-- **shadcn/ui** components using Base UI, with Lucide icons available.
-- **React Router 8** for client-side routes and URL parameters.
-- **TanStack Query 5** for fetching and caching server data.
-- **Oxlint** for linting.
+Projektet är byggt med **React, TypeScript och Vite**. Jag valde React eftersom jag ville utveckla mina kunskaper inom komponentbaserad frontendutveckling och skapa en applikation med återanvändbara komponenter.
 
-Dependency ranges are defined in `package.json`; exact versions are recorded in `package-lock.json`.
+Jag har även använt Tailwind CSS och shadcn/ui för design, React Router för navigering och TanStack Query för API-anrop och cachning.
 
-## Getting started
+Applikationen använder följande API:er:
 
-### Prerequisites
+- **Countries.dev** – information om länder.
+- **Open-Meteo** – geokodning och väderinformation.
+- **Wikipedia** – landsbeskrivningar och bilder.
 
-- Node.js 22.12 or newer, compatible with the installed Vite version.
-- npm.
-- An internet connection for the external API requests.
+## Installation
 
-### Installation
+För att köra projektet lokalt behöver du Node.js och npm installerat.
 
-From the repository root:
+Klona projektet och installera beroenden:
 
 ```bash
+git clone https://github.com/AdamTimrell/ReseApp.git
+cd ReseApp
 npm install
 ```
 
-### Development
+Starta utvecklingsservern:
 
 ```bash
 npm run dev
 ```
 
-Open the local URL printed by Vite, usually `http://localhost:5173`.
+Öppna sedan adressen som visas i terminalen, vanligtvis `http://localhost:5173`.
 
-### Available scripts
+Inga API-nycklar eller miljövariabler krävs.
 
-| Command | Purpose |
-| --- | --- |
-| `npm run dev` | Start the Vite development server. |
-| `npm run build` | Run TypeScript checks with `tsc -b`, then create the production bundle in `dist/`. |
-| `npm run lint` | Run Oxlint on `src` and `vite.config.ts`. |
-| `npm run preview` | Serve an existing production build locally. |
+## Extra funktioner
 
-There is currently no automated test script configured.
+Utöver grundfunktionerna har jag lagt till filtrering efter befolkningsmängd, luftfuktighet i väderinformationen och bilder från Wikipedia.
 
-## API integrations
+Jag hade från början implementerat en alternativ sökfunktion som fungerade annorlunda jämfört med den i pprojektbeskrivningen. Jag ville att enstaka länder skulle ta användaren till landets detaljsida för att användaren skulle slippa extra klick. Jag valde att inte inkludera filtrering när man sökte så att man fritt kan söka bland länder utan att behöva ta bort applicerade filter. Filtrena fungerade efter en sökning ifall man ville visa alla europeiska länder som börjar på "F". Jag valde tillslut att gå efter projektbeskrivningens sökfunktion då produktägaren har slutgiltiga ordet över hur sidan ska se ut. I en riktig utvecklingsmiljö kan man inte implementera de funktioner man anser passar bäst bara för att man känner för det utan det ska tas med produktägaren i första hand.
 
-API requests are defined in `src/services/` and consumed through TanStack Query hooks in `src/hooks/`.
+## Deployment
 
-| API | Current use |
-| --- | --- |
-| Countries.dev (`countries.dev/countries` and `countries.dev/alpha/:alpha3Code`) | Country lists and individual country facts, including flags, capitals, regions, population, coordinates, languages, and currencies. |
-| Open-Meteo Geocoding (`geocoding-api.open-meteo.com/v1/search`) | Look up capital-city coordinates and select a result matching the country name. |
-| Open-Meteo Forecast (`api.open-meteo.com/v1/forecast`) | Fetch current weather and seven days of daily forecast data. The interface currently displays current conditions only. |
-| English Wikipedia REST API (`en.wikipedia.org/api/rest_v1/page/summary/:name`) | Fetch a country introduction and article link. The response may include a thumbnail, but the interface does not currently display it. |
+**Länk till applikationen:** [Lägg till länk efter publicering]
 
-The country service currently uses **Countries.dev**. The planned REST Countries v5 migration has not been implemented.
+## AI-användning
 
-Country, geocoding, and Wikipedia queries use an infinite stale time; weather queries use a 15-minute stale time.
+Jag har använt ChatGPT och OpenAI Codex som stöd under utvecklingen. AI har hjälpt mig med planering, förklaringar, felsökning, kodgranskning, refaktorering och dokumentation.
 
-## Project structure
+Jag har använt verktygen både för att förstå nya koncept och för att få hjälp med delar av implementationen. Jag ansvarar själv för att granska och förstå den färdiga lösningen.
 
-```text
-src/
-├── components/
-│   ├── countries/    # Country cards, search form, and region filter
-│   ├── ui/           # Reusable shadcn/ui components
-│   ├── layout/       # Placeholder for shared layout work
-│   └── details/      # Placeholder for detail components
-├── hooks/            # TanStack Query hooks for API data
-├── lib/              # Shared utilities, including class-name merging
-├── pages/            # CountriesPage and CountryDetailsPage
-├── services/         # HTTP requests to external APIs
-├── types/            # TypeScript interfaces for API data
-├── utils/            # Weather-code descriptions
-├── assets/           # Asset directory
-├── data/             # Placeholder for local data
-├── App.tsx           # List and country-detail route definitions
-├── main.tsx          # React entry point, router, and QueryClient provider
-└── index.css         # Global styles and theme
-```
+## Personlig reflektion
 
-`vite.config.ts` configures React, Tailwind, and the `@/` source alias. `components.json` contains shadcn/ui configuration.
-
-## Environment variables
-
-**No environment variables or API keys are currently required.** The services use public API endpoints defined directly in the source code, and the application does not currently read environment variables.
-
-`.env.example` contains configuration notes only; creating a `.env` file is not necessary to run the application. Never place credentials or secrets in frontend configuration: Vite variables prefixed with `VITE_` are exposed to the browser.
-
-## Project status
-
-Atlas is under active development as a school final project. The features above are implemented in the current source code; live API availability and browser behavior have not been verified as part of this documentation update.
-
-Planned work includes the REST Countries v5 migration, shared navigation and layout, and further responsive-design and accessibility review. The seven-day forecast is fetched but is not yet presented in the interface.
-
-The latest local checks found a pre-existing TypeScript error: an unused `GeocodingData` import in `src/services/geocodingService.ts` prevents `npm run build` from completing. Lint completes with existing warnings. These issues are separate from this documentation update.
-
-[PROJECT-PLAN.md](PROJECT-PLAN.md) and [TASKS.md](TASKS.md) contain earlier planning notes and may lag behind the current implementation.
-
-### AI assistance
-
-ChatGPT and OpenAI Codex have been used as development support for planning, explanations, debugging, code review, component configuration, refactoring, and documentation. The project author remains responsible for understanding and validating the code.
+Detta var ett av de roligare projekten jag arbetat med sedan jag började studera frontend. Komponentbaserade kodningen ger ett naturligt sett att organisera koden på som passar mig bättre och hjälper mig att planera mitt projekt. Förr så har alltid projekten känts stora och matiga men denna gången var det mycket lättare att bara ta en funktion i taget.
+Utöver detta var det också roligt att få arbeta i Tailwind. Jag har tidiagare arbetat med Boostrap som ger en mer färdiga komponenter jämfört med Tailwind. Jag var förvånad själv över hur mycket css som jag fortfarande kom ihåg.

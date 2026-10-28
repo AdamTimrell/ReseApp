@@ -73,7 +73,7 @@ export function CountriesPage() {
 
           <div className="relative z-10 max-w-xl">
             <p className="mb-2 text-sm font-semibold uppercase tracking-widest text-teal-200">
-              Atlas
+              Elsewhere
             </p>
 
             <h1
@@ -122,7 +122,7 @@ export function CountriesPage() {
 
         <div className="relative z-10 max-w-xl">
           <p className="mb-2 text-sm font-semibold uppercase tracking-widest text-teal-200">
-            Atlas
+            Elsewhere
           </p>
 
           <h1
@@ -150,11 +150,13 @@ export function CountriesPage() {
         </aside>
         <section className="min-w-0 flex-1">
           {/* LANDKORT: Visar aktuell sida i ett responsivt rutnät */}
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <ul className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {paginatedCountries?.map((country) => (
-              <CountryCard key={country.alpha3Code} country={country} />
+              <li key={country.alpha3Code} className="list-none">
+                <CountryCard country={country} />
+              </li>
             ))}
-          </div>
+          </ul>
           {/* TOMT RESULTAT: Meddelande när inga länder matchar filtren */}
           {filteredCountries?.length === 0 && (
             <p>Inga länder matchar dina kriterier</p>

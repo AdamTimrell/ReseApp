@@ -27,9 +27,13 @@ export function WikipediaSection({ countryName }: WikipediaSectionProps) {
 
       {/* WIKIPEDIASTATUS: Hanterar laddning, fel med nytt försök och saknad beskrivning */}
       {isWikipediaPending ? (
-        <p role="status" className="text-slate-600">
-          Laddar beskrivning...
-        </p>
+        <div role="status" className="flex items-center gap-3 text-slate-600">
+          <div
+            className="h-5 w-5 animate-spin rounded-full border-2 border-slate-200 border-t-teal-700"
+            aria-hidden="true"
+          />
+          <p>Laddar beskrivning...</p>
+        </div>
       ) : wikipediaError ? (
         <div className="space-y-4">
           <p role="alert" className="text-slate-600">

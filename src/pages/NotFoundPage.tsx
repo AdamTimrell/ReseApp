@@ -1,9 +1,13 @@
 import { Link } from "react-router";
 
+type NotFoundPageProps = {
+  message?: string;
+};
+
 // 404: Visar saknad sida eller saknat land med länk till startsidan
-export function NotFoundPage() {
+export function NotFoundPage({ message }: NotFoundPageProps) {
   return (
-    <main className="flex min-h-[60vh] flex-col items-center justify-center gap-4 px-4 text-center">
+    <div className="flex min-h-[60vh] flex-col items-center justify-center gap-4 px-4 text-center">
       <h1 className="text-6xl font-bold text-slate-800">404</h1>
 
       <h2 className="text-2xl font-semibold text-slate-700">
@@ -11,7 +15,7 @@ export function NotFoundPage() {
       </h2>
 
       <p className="max-w-md text-slate-500">
-        Landet eller sidan du söker finns inte.
+        {message ?? "Landet eller sidan du söker finns inte."}
       </p>
 
       <Link
@@ -20,6 +24,6 @@ export function NotFoundPage() {
       >
         Tillbaka till länderna
       </Link>
-    </main>
+    </div>
   );
 }

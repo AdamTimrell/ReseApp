@@ -1,6 +1,8 @@
 import type { GeocodingData } from "../types/geocodingData.ts";
 
-export const getGeocodingData = async (capital: string) => {
+export const getGeocodingData = async (
+  capital: string,
+): Promise<GeocodingData> => {
   const response = await fetch(
     `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(capital)}&count=5&language=en&format=json`,
   );

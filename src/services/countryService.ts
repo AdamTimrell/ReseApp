@@ -31,7 +31,3 @@ export const getCountryDetails = async (
   const data = await response.json();
   return data;
 };
-
-getCountryDetails("SWE");
-
-console.log(getCountryDetails("SWE"));
